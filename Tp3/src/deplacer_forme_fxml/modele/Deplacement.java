@@ -1,52 +1,60 @@
 package deplacer_forme_fxml.modele;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 public class Deplacement extends Thread {
 
-	
 	private DoubleProperty depy;
 	private DoubleProperty depx;
-	private Direction direction = null;
+	private Direction direction = Direction.ESCAPE;
 
-	public Deplacement(DoubleProperty x, DoubleProperty y) {
-		setDepx(x);
-		setDepy(y);
+	public Deplacement(Double x, Double y) {
+		setDepx(new SimpleDoubleProperty(x));
+		setDepy(new SimpleDoubleProperty(y));
 		setDirection(direction);
 	}
 
 	public void run() {
-		switch (direction) {
-		case HAUT:
-			for (int i = 0; i < 225; i++) {
-				depy.set(depy.get() + 1);
+		while (isAlive() && getDepxd() < 200 && getDepyd() < 225) {
+			switch (direction) {
+			case HAUT:
+				depy.set(depy.get() - 5);
+				break;
+			case BAS:
+				depy.set(depy.get() + 5);
+				break;
+			case DROITE:
+				depx.set(depx.get() + 5);
+				break;
+			case GAUCHE:
+				depx.set(depx.get() - 5);
+				break;
+			case ESCAPE:
+				break;
+			default:
+				break;
 			}
-			break;
-		case BAS:
-			for (int i = 0; i < 225; i++) {
-				depy.set(depy.get() - 1);
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-			break;
-		case DROITE:
-			for (int i = 0; i < 200; i++) {
-				depx.set(depx.get() + 1);
-			}
-			break;
-		case GAUCHE:
-			for (int i = 0; i < 200; i++) {
-				depx.set(depx.get() + 1);
-			}
-			break;
-		case ESCAPE:
 
-			break;
-		default:
-			break;
 		}
+
 	}
 
 	public DoubleProperty getDepy() {
 		return depy;
+	}
+
+	public double getDepyd() {
+		return depy.get();
+	}
+
+	public double getDepxd() {
+		return depx.get();
 	}
 
 	public void setDepy(DoubleProperty depy) {

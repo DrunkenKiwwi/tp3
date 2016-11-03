@@ -1,67 +1,45 @@
 package deplacer_forme_fxml.controleur;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import deplacer_forme_fxml.modele.Deplacement;
 import deplacer_forme_fxml.modele.Direction;
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class CtrlDeplacerForme extends Application implements Initializable {
+public class CtrlDeplacerForme {
 	@FXML
 	private Rectangle rectangle;
 
 	@FXML
-	private AnchorPane stackp;
+	private AnchorPane anchorp;
+
+	@FXML
+	private StackPane stackp;
 
 	private Deplacement deplacement;
 
 	private Stage stage;
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
-	public void start(Stage stage) {
-
-		try {
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getResource("/deplacer_forme_fxml/vue/VueDeplacerForme.fxml"));
-
-			stackp = (AnchorPane) loader.load();
-
-			Scene scene = new Scene(stackp);
-
-			stage.setTitle("D�placer Forme");
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.show();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		rectangle.layoutXProperty().bind(deplacement.getDepx());
-		rectangle.layoutYProperty().bind(deplacement.getDepy());
+	@FXML
+	public void initialize() {
+		deplacement = new Deplacement(0.0, 0.0);
+		rectangle.xProperty().bind(deplacement.getDepx());
+		rectangle.yProperty().bind(deplacement.getDepy());
+		rectangle.setManaged(false);
+		deplacement.start();
 
 	}
 
 	@FXML
 	private void handletouche(KeyEvent event) {
+		System.out.println("ok");
 		KeyCode code = event.getCode();
 		switch (code) {
 		case UP:

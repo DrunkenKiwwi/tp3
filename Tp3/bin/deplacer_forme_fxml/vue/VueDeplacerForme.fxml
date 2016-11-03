@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="deplacer_forme_fxml.controleur.CtrlDeplacerForme">
+<AnchorPane fx:id="anchorp" onKeyPressed="#handletouche" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="deplacer_forme_fxml.controleur.CtrlDeplacerForme">
    <children>
-      <StackPane fx:id="stackp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="200.0">
+      <StackPane fx:id="stackp" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handletouche" prefHeight="225.0" prefWidth="200.0">
          <children>
-            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" onKeyPressed="#handletouche" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
          </children>
       </StackPane>
    </children>
