@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="485.0" stylesheets="@../../../res/styles/convertisseur.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="convertisseur_fxml.controleur.ControleurConvertisseur">
+   <children>
+      <Label fx:id="label" alignment="TOP_LEFT" text="Convertisseur">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="200.0" />
+         </padding></Label>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <RadioButton fx:id="poids" mnemonicParsing="false" onAction="#changerTypeConvertion" styleClass="bouton-radio" text="Poids">
+               <toggleGroup>
+                  <ToggleGroup fx:id="boutons" />
+               </toggleGroup>
+               <padding>
+                  <Insets left="40.0" top="10.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="volume" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#changerTypeConvertion" styleClass="bouton-radio" text="Volume" toggleGroup="$boutons">
+               <padding>
+                  <Insets left="70.0" top="10.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="distance" layoutX="97.0" layoutY="10.0" mnemonicParsing="false" onAction="#changerTypeConvertion" styleClass="bouton-radio" text="Distance" toggleGroup="$boutons">
+               <padding>
+                  <Insets left="70.0" top="10.0" />
+               </padding>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ComboBox fx:id="listeGauche" onAction="#changerListeGauche" prefHeight="38.0" prefWidth="233.0" styleClass="combo-box" />
+            <ComboBox fx:id="listeDroite" onAction="#changerListeDroite" prefHeight="38.0" prefWidth="226.0" styleClass="combo-box">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin></ComboBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="410.0">
+         <children>
+            <TextField fx:id="valeurGauche" onKeyReleased="#editerValeurGauche" prefHeight="38.0" prefWidth="232.0" styleClass="text-field" />
+            <ImageView fx:id="fleches" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@../../../res/images/fleche2.gif" />
+               </image></ImageView>
+            <TextField fx:id="valeurDroite" onKeyReleased="#editerValeurDroite" prefHeight="38.0" prefWidth="230.0" styleClass="text-field" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
