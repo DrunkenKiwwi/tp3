@@ -2,6 +2,7 @@ package tp2_fxml.controleur;
 
 import java.io.IOException;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,9 +33,9 @@ public class ControleurForme {
 	@FXML
 	private BorderPane borderp;
 
-    @FXML
-    private Canvas canevas;
-	
+	@FXML
+	public Canvas canevas;
+
 	@FXML
 	private Button butt1;
 
@@ -45,7 +46,7 @@ public class ControleurForme {
 	private Button butt3;
 
 	@FXML
-	private ListView<String> listv;
+	public  ListView<String> listv;
 
 	@FXML
 	private ColorPicker choiceb;
@@ -70,34 +71,16 @@ public class ControleurForme {
 
 	@FXML
 	private Slider slider;
-	
-	private DropShadow effetShadow = new DropShadow(20, Color.BLACK);
-	
-	private GraphicsContext gc = canevas.getGraphicsContext2D();
 
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Logiciel de dessin");
 
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/vue/EventHandlerDemo.fxml"));
 
-			borderp = (BorderPane) loader.load();
-			// initialize();
-
-			Scene scene = new Scene(borderp);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e) {
-			System.err.println("Error loading EventHandlerDemo.fxml!");
-			e.printStackTrace();
-		}
-	}
+	//private GraphicsContext canevas.getGraphicsContext2D() = canevas.getGraphicsContext2D();
 
 	@FXML
 	void genererForme(ActionEvent event) {
 		// TODO
-		// Caller la méthode qui nous fait une forme
-		// Créer un data avec infos, formesfact avec data, data fait forme, tout
+		// Caller la mï¿½thode qui nous fait une forme
+		// Crï¿½er un data avec infos, formesfact avec data, data fait forme, tout
 		// remonte
 		DataFactory data = null;
 		if (getListView().getSelectionModel().getSelectedItem().equals("Triangle")) {
@@ -116,19 +99,19 @@ public class ControleurForme {
 			Forme formedessin = formesF.getInstance(data);
 			ajouterForme(data);
 		} catch (FormeException e) {
-			// popper fenêtre forme invalide
+			// popper fenï¿½tre forme invalide
 			Alert dialogW = new Alert(AlertType.WARNING);
 			dialogW.setTitle("Error");
 			dialogW.setHeaderText(null);
 			dialogW.setContentText("Forme non valide");
 			dialogW.showAndWait();
 		} catch (ZoneDessinException e) {
-			// popper fenêtre forme out of bounds
+			// popper fenï¿½tre forme out of bounds
 
 			Alert dialogW = new Alert(AlertType.WARNING);
 			dialogW.setTitle("Error");
 			dialogW.setHeaderText(null);
-			dialogW.setContentText("Forme à l'extérieur des bordures");
+			dialogW.setContentText("Forme ï¿½ l'extï¿½rieur des bordures");
 			dialogW.showAndWait();
 		}
 	}
@@ -168,17 +151,16 @@ public class ControleurForme {
 	@FXML
 	void mettreEffet(ActionEvent event) {
 		if (this.getCheckbox().isSelected()) {
-			gc.applyEffect(effetShadow);
-			effetShadow.setColor(Color.BLACK);
+			canevas.getGraphicsContext2D().applyEffect(new DropShadow(20, Color.BLACK));
+			
 		} else {
-			effetShadow.setColor(Color.TRANSPARENT);
-
+			canevas.getGraphicsContext2D().applyEffect(null);
 		}
 	}
 
 	@FXML
 	void resetAffichage(ActionEvent event) {
-		gc.clearRect(0, 0, 600, 600);
+		canevas.getGraphicsContext2D().clearRect(0, 0, 600, 600);
 	}
 
 	@FXML
@@ -192,25 +174,25 @@ public class ControleurForme {
 		String forme = data.getType();
 		switch (forme) {
 		case "Ligne":
-			gc.setStroke(data.getCouleur());
-			gc.strokeLine(data.getPosX(), data.getPosY(), data.getPosX() + data.getLargeur(),
+			canevas.getGraphicsContext2D().setStroke(data.getCouleur());
+			canevas.getGraphicsContext2D().strokeLine(data.getPosX(), data.getPosY(), data.getPosX() + data.getLargeur(),
 					data.getPosY() + data.getHauteur());
 			break;
 		case "Ovale":
-			gc.setFill(data.getCouleur());
-			gc.fillOval(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
+			canevas.getGraphicsContext2D().setFill(data.getCouleur());
+			canevas.getGraphicsContext2D().fillOval(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
 			break;
 		case "Rectangle":
-			gc.setFill(data.getCouleur());
-			gc.fillRect(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
+			canevas.getGraphicsContext2D().setFill(data.getCouleur());
+			canevas.getGraphicsContext2D().fillRect(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
 			break;
 		case "Triangle":
-			gc.setFill(data.getCouleur());
-			gc.fillPolygon(data.getPointsTriangleX(), data.getPointsTriangleY(), 3);
+			canevas.getGraphicsContext2D().setFill(data.getCouleur());
+			canevas.getGraphicsContext2D().fillPolygon(data.getPointsTriangleX(), data.getPointsTriangleY(), 3);
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 }
