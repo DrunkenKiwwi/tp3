@@ -1,13 +1,10 @@
-package convertisseur_fxml.controleur;
+package controleur;
 
-import convertisseur_fxml.modele.Convertir;
-import convertisseur_fxml.modele.Distance;
-import convertisseur_fxml.modele.Poids;
-import convertisseur_fxml.modele.TypeDistance;
-import convertisseur_fxml.modele.TypeMesure;
-import convertisseur_fxml.modele.TypePoids;
-import convertisseur_fxml.modele.TypeVolume;
-import convertisseur_fxml.modele.Volume;
+import modele.Convertir;
+import modele.Poids;
+import modele.TypePoids;
+import modele.TypeVolume;
+import modele.Volume;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,15 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class ControleurConvertisseur extends Application {
 
-	private VBox root = null;
+	private BorderPane root = null;
 	private Scene scene = null;
 	private Convertir modele = null;
 
@@ -35,28 +30,21 @@ public class ControleurConvertisseur extends Application {
 	@FXML
 	private RadioButton distance;
 	@FXML
-	private ComboBox<TypeMesure> listeGauche;
+	private ComboBox<TypePoids> listeGauche;
 	@FXML
-	private ComboBox<TypeMesure> listeDroite;
+	private ComboBox<TypePoids> listeDroite;
 	@FXML
 	private TextField valeurDroite;
 	@FXML
 	private TextField valeurGauche;
-	@FXML
-	private ToggleGroup boutons;
-	@FXML
-	private ImageView fleches;
 
 	public ControleurConvertisseur() {
 	}
 
-	/**
-	 * Est appelée au début de l'application, pour afficher la fenêtre
-	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(
-				"/convertisseur_fxml/vue/VueConvertisseur.fxml"));
+				"/vue/VueConvertisseur.fxml"));
 		// Chargement du fichier FXML
 		root = loader.load();
 		scene = new Scene(root);
@@ -65,58 +53,32 @@ public class ControleurConvertisseur extends Application {
 		primaryStage.show();
 	}
 
-	/**
-	 * Met les poids comme unités par défaut
-	 */
 	@FXML
 	private void initialize() {
 		initPoids();
 		poids.setSelected(true);
 	}
 
-	/**
-	 * Remplit les listes avec les unités de poids
-	 */
 	private void initPoids() {
 		modele = new Poids();
-		listeGauche.setItems(TypePoids.getListeType());
+		listeGauche.setItems(TypePoids.getListeTypePoids());
 		listeGauche.getSelectionModel().select(0);
-		listeDroite.setItems(TypePoids.getListeType());
+		listeDroite.setItems(TypePoids.getListeTypePoids());
 		listeDroite.getSelectionModel().select(1);
 		valeurGauche.setText("0");
 		valeurDroite.setText("0");
 	}
 
-	/**
-	 * Remplit les listes avec les unités de volume
-	 */
 	private void initVolume() {
 		modele = new Volume();
-		listeGauche.setItems(TypeVolume.getListeType());
-		listeGauche.getSelectionModel().select(0);
-		listeDroite.setItems(TypeVolume.getListeType());
-		listeDroite.getSelectionModel().select(1);
-		valeurGauche.setText("0");
-		valeurDroite.setText("0");
+		// TODO Régler comment mettre la combobox pour que ça fitte... Object?
+		// listeGauche.setItems(TypeVolume.getListeTypeVolume());
 	}
 
-	/**
-	 * Remplit les listes avec les unités de distance
-	 */
 	private void initDistance() {
-		modele = new Distance();
-		listeGauche.setItems(TypeDistance.getListeType());
-		listeGauche.getSelectionModel().select(0);
-		listeDroite.setItems(TypeDistance.getListeType());
-		listeDroite.getSelectionModel().select(1);
-		valeurGauche.setText("0");
-		valeurDroite.setText("0");
+		System.out.println("distance");
 	}
 
-	/**
-	 * Change les listes quand on clique sur un bouton radio
-	 * @param event
-	 */
 	@FXML
 	private void changerTypeConvertion(ActionEvent event) {
 		if (event.getSource() == poids) {
@@ -128,9 +90,6 @@ public class ControleurConvertisseur extends Application {
 		}
 	}
 
-	/**
-	 * Change la valeur à gauche quand on change l'unité à gauche
-	 */
 	@FXML
 	private void changerListeGauche() {
 		try {
@@ -145,10 +104,6 @@ public class ControleurConvertisseur extends Application {
 		}
 	}
 
-	/**
-	 * Change la valeur droite quand la valeur gauche est éditée
-	 * @param event
-	 */
 	@FXML
 	private void editerValeurGauche(KeyEvent event) {
 		try {
@@ -160,9 +115,6 @@ public class ControleurConvertisseur extends Application {
 		}
 	}
 
-	/**
-	 * Change la valeur à droite quand on change l'unité à droite
-	 */
 	@FXML
 	private void changerListeDroite() {
 		try {
@@ -177,10 +129,6 @@ public class ControleurConvertisseur extends Application {
 		}
 	}
 
-	/**
-	 * Change la valeur gauche quand la valeur droite est éditée
-	 * @param event
-	 */
 	@FXML
 	private void editerValeurDroite(KeyEvent event) {
 		try {
@@ -192,10 +140,6 @@ public class ControleurConvertisseur extends Application {
 		}
 	}
 
-	/**
-	 * Méthode qui est exécutée quand le programme commence, qui appelle launch()
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
