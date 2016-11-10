@@ -1,0 +1,4 @@
+https://gist.github.com/james-d/8327842          \\Exemple de collision (avec vélocité)
+https://en.wikipedia.org/wiki/Elastic_collision    \\Concept physique sur les collision
+https://gamedevelopment.tutsplus.com/tutorials/when-worlds-collide-simulating-circle-circle-collisions--gamedev-769     \\Exemple collision élastique entre 2 balles
+https://blogs.oracle.com/vaibhav/entry/colliding_balls_javafx   \\Exemple de collision entre des balles
